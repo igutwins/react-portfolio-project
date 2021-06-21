@@ -5,7 +5,9 @@ import Row from 'react-bootstrap/Row'
 
 class GridArea extends Component {
     render(){
-        return(<div>
+        return(
+        <div>
+            <h2>Kanban Board</h2>
             <Container sm={12}>
                 <Row>
             <Swimlane title='Backlog'/>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
+import { NavLink } from 'react-router-dom'
 
 class Navigation extends Component {
     render(){
@@ -11,9 +12,8 @@ class Navigation extends Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#link">Link</Nav.Link>
-                <Button className="new-task">Create New Task</Button>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/new">Create New Task</NavLink>
               </Nav>
             </Navbar.Collapse> 
           </Navbar>
