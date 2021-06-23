@@ -1,12 +1,27 @@
-export default (state = [], action) => {
-
-    let index;
-    let task;
+const tasksReducer = (state = {tasks: {}, loading: false}, action) => {
     
       switch(action.type){
-        case "ADD_TASK":
-          return state.concat(action.task);
-    
+        
+        case "LOADING_TASKS":
+          return {
+            ...state, 
+            tasks: {},
+            loading: true
+          };
+        
+        case "ADD_TASKS":
+          return {
+            ...state, 
+            tasks: action.tasks,
+            loading: false
+          };
+
+          case "ADD_TASK":
+            return {
+              ...state, 
+              tasks: action.tasks,
+              loading: false
+            };
         // case "REMOVE_TASK":
         //   return state.filter(task => task.id !== action.taskId);
           
@@ -16,3 +31,4 @@ export default (state = [], action) => {
       
     }
     
+    export default tasksReducer

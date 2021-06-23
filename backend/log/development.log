@@ -1,0 +1,2579 @@
+  [1m[35m (7.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateTasks (20210620191812)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" varchar, "assignee" varchar, "reviewer" varchar, "status" varchar, "user_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_user_id" ON "tasks" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210620191812"]]
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUsers (20210620191847)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "title" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210620191847"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-06-22 16:13:13.609493"], ["updated_at", "2021-06-22 16:13:13.609493"]]
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (7.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "title", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Ian"], ["email", "ian@mosaic.pe"], ["title", "Manager"], ["created_at", "2021-06-22 16:14:09.589869"], ["updated_at", "2021-06-22 16:14:09.589869"]]
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."user_id" = ? /* loading for inspect */ LIMIT ?[0m  [["user_id", 1], ["LIMIT", 11]]
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."user_id" = ? ORDER BY "tasks"."id" ASC LIMIT ?[0m  [["user_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTask Create (2.0ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "assignee", "reviewer", "status", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["title", "Call Banker"], ["description", "Follow up with Bank A to gather value expectations"], ["assignee", "Steve"], ["reviewer", "Ian"], ["status", "In Progress"], ["user_id", 1], ["created_at", "2021-06-22 16:19:43.692892"], ["updated_at", "2021-06-22 16:19:43.692892"]]
+  [1m[36mTRANSACTION (6.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."user_id" = ? /* loading for inspect */ LIMIT ?[0m  [["user_id", 1], ["LIMIT", 11]]
+Started GET "/" for ::1 at 2021-06-22 13:00:38 -0400
+  [1m[35m (12.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/igutwins/.rvm/gems/ruby-2.6.1/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/igutwins/.rvm/gems/ruby-2.6.1/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 32.6ms | Allocations: 477)
+Completed 200 OK in 108ms (Views: 58.3ms | ActiveRecord: 0.0ms | Allocations: 4121)
+
+
+Started GET "/" for ::1 at 2021-06-22 13:01:06 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/igutwins/.rvm/gems/ruby-2.6.1/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/igutwins/.rvm/gems/ruby-2.6.1/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 4.6ms | Allocations: 191)
+Completed 200 OK in 7ms (Views: 6.3ms | ActiveRecord: 0.0ms | Allocations: 753)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:09:12 -0400
+  [1m[35m (10.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:19: syntax error, unexpected tIDENTIFIER, expecting ')'
+            status: params[:status] 
+            ^~~~~~
+/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:20: syntax error, unexpected ')', expecting end
+        )
+        ^):
+  
+app/controllers/tasks_controller.rb:19: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:20: syntax error, unexpected ')', expecting end
+app/controllers/tasks_controller.rb:19: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:20: syntax error, unexpected ')', expecting end
+Started GET "/tasks" for ::1 at 2021-06-22 15:09:25 -0400
+  
+SyntaxError (/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:19: syntax error, unexpected tIDENTIFIER, expecting ')'
+            status: params[:status] 
+            ^~~~~~
+/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:20: syntax error, unexpected ')', expecting end
+        )
+        ^):
+  
+app/controllers/tasks_controller.rb:19: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:20: syntax error, unexpected ')', expecting end
+app/controllers/tasks_controller.rb:19: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:20: syntax error, unexpected ')', expecting end
+Started GET "/tasks" for ::1 at 2021-06-22 15:10:12 -0400
+  
+SyntaxError (/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+            status: params[:status] 
+            ^~~~~~
+/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:22: syntax error, unexpected ')', expecting end
+        )
+        ^):
+  
+app/controllers/tasks_controller.rb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:22: syntax error, unexpected ')', expecting end
+app/controllers/tasks_controller.rb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:22: syntax error, unexpected ')', expecting end
+Started GET "/tasks" for ::1 at 2021-06-22 15:10:25 -0400
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+            status: params[:status] 
+            ^~~~~~
+/home/igutwins/code/projects/react-portfolio-project/backend/app/controllers/tasks_controller.rb:22: syntax error, unexpected ')', expecting end
+        )
+        ^):
+  
+app/controllers/tasks_controller.rb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:22: syntax error, unexpected ')', expecting end
+app/controllers/tasks_controller.rb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/controllers/tasks_controller.rb:22: syntax error, unexpected ')', expecting end
+Started GET "/tasks" for ::1 at 2021-06-22 15:10:47 -0400
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks"[0m
+  ↳ app/controllers/tasks_controller.rb:12:in `index'
+Completed 200 OK in 105ms (Views: 6.3ms | ActiveRecord: 0.8ms | Allocations: 9256)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:13:28 -0400
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks"[0m
+  ↳ app/controllers/tasks_controller.rb:12:in `index'
+Completed 200 OK in 26ms (Views: 11.8ms | ActiveRecord: 1.6ms | Allocations: 9258)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:13:50 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:12:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:12:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:12:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:12:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:12:in `index'
+Completed 200 OK in 22ms (Views: 20.3ms | ActiveRecord: 3.2ms | Allocations: 8407)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:19:10 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 17ms (Views: 15.8ms | ActiveRecord: 2.5ms | Allocations: 8345)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:19:14 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 1.2ms | Allocations: 2532)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:19:23 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.2ms | Allocations: 2532)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:19:33 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.5ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:21:27 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:22:06 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:23:28 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.9ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:23:34 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 0.8ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:23:39 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.8ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:23:46 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:23:58 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (10.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 16ms (Views: 4.9ms | ActiveRecord: 11.1ms | Allocations: 2515)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:24:12 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (1.9ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 14ms (Views: 10.5ms | ActiveRecord: 2.7ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:24:37 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.8ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:24:38 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:24:54 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.1ms | ActiveRecord: 1.7ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:26:21 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:26:39 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:27:24 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 3.9ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:27:48 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:28:11 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:28:33 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.9ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:28:59 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:29:15 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:29:18 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.9ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:29:20 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 7.4ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:30:06 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:30:25 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.4ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:31:11 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 9.0ms | ActiveRecord: 1.7ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:31:49 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:32:10 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:32:14 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:32:17 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:32:35 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.9ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:34:27 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 9.2ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:36:21 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 9.4ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:39:43 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.1ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:40:29 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (1.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 7.6ms | ActiveRecord: 2.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:40:47 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.2ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:40:54 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:40:58 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 24ms (Views: 21.3ms | ActiveRecord: 1.8ms | Allocations: 2515)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:41:42 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:44:28 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:46:33 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 5.9ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:46:36 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.6ms | ActiveRecord: 1.6ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:46:38 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 8.9ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:46:41 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:46:44 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:49:24 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 15:49:45 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:01:11 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 10.1ms | ActiveRecord: 1.5ms | Allocations: 3089)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:02:14 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.1ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:02:41 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:03:13 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:04:13 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 5.9ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:09:16 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:09:21 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:09:29 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:09:31 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.1ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:09:34 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.6ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:09:37 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.2ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:09:38 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.4ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:10:04 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.9ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:11:17 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 3.9ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:13:42 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:30:26 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 10.2ms | ActiveRecord: 1.4ms | Allocations: 3089)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:32:31 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 12ms (Views: 11.2ms | ActiveRecord: 0.9ms | Allocations: 2515)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:33:04 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.6ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:33:50 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.8ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:33:58 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.7ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:34:29 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:36:13 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.5ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:38:16 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 25ms (Views: 22.3ms | ActiveRecord: 3.0ms | Allocations: 8372)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:40:43 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.4ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:41:13 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.4ms | ActiveRecord: 1.6ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:41:15 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.6ms | ActiveRecord: 1.7ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:41:17 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:41:26 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 28ms (Views: 26.0ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:44:06 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (1.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 12ms (Views: 8.7ms | ActiveRecord: 2.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:44:45 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 0.8ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:44:46 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 8.8ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:45:00 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:45:58 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 8.4ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:47:06 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (1.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 13ms (Views: 9.3ms | ActiveRecord: 2.6ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:52:14 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:52:43 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 5.8ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:52:45 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 17ms (Views: 15.1ms | ActiveRecord: 1.6ms | Allocations: 2515)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:53:02 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 27ms (Views: 24.8ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:53:05 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.9ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:53:07 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 6.0ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:53:07 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:57:34 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.4ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 16:59:33 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 7.7ms | ActiveRecord: 1.6ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:02 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 38ms (Views: 36.2ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:28 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:32 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:44 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 6.0ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:46 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.9ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:48 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:50 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.7ms | ActiveRecord: 0.8ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:03:58 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.9ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:04:01 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 21ms (Views: 19.3ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:04:19 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.1ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:04:23 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 1.0ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:04:26 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.9ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:04:28 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 6.0ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:05:08 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.9ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:05:15 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 1.2ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:05:24 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:05:27 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 3.8ms | ActiveRecord: 0.9ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:06:06 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 8.2ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:07:04 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 13ms (Views: 11.2ms | ActiveRecord: 1.3ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:07:16 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 1.5ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:07:20 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.6ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:07:22 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 18ms (Views: 16.2ms | ActiveRecord: 1.7ms | Allocations: 2515)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:07:23 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.8ms | ActiveRecord: 1.1ms | Allocations: 2514)
+
+
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" /* loading for inspect */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTask Create (2.4ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "assignee", "reviewer", "status", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["title", "Build LBO"], ["description", "try to build it right this time"], ["assignee", "Michael"], ["reviewer", "Ian"], ["status", "For Review"], ["user_id", 1], ["created_at", "2021-06-22 21:17:31.781583"], ["updated_at", "2021-06-22 21:17:31.781583"]]
+  [1m[36mTRANSACTION (23.5ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for ::1 at 2021-06-22 17:23:13 -0400
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/igutwins/.rvm/gems/ruby-2.6.1/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/igutwins/.rvm/gems/ruby-2.6.1/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 35.4ms | Allocations: 314)
+Completed 200 OK in 144ms (Views: 70.3ms | ActiveRecord: 0.0ms | Allocations: 2441)
+
+
+Started GET "/favicon.ico" for ::1 at 2021-06-22 17:23:13 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/tasks" for ::1 at 2021-06-22 17:23:17 -0400
+Processing by TasksController#index as HTML
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 16ms (Views: 11.3ms | ActiveRecord: 1.6ms | Allocations: 9217)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:25:24 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.8ms | ActiveRecord: 1.6ms | Allocations: 2700)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:25:33 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 8.1ms | ActiveRecord: 1.4ms | Allocations: 2702)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:26:59 -0400
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 29ms (Views: 13.5ms | ActiveRecord: 2.4ms | Allocations: 11184)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:27:55 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 9.0ms | ActiveRecord: 1.3ms | Allocations: 2699)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:30:35 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.3ms | Allocations: 2700)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:30:54 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.4ms | ActiveRecord: 1.7ms | Allocations: 2699)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:45:29 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 7.8ms | ActiveRecord: 1.2ms | Allocations: 3275)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:45:46 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.5ms | ActiveRecord: 1.6ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:45:46 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.8ms | ActiveRecord: 1.5ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:45:51 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.6ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:46:11 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 0.9ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:46:21 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 8.7ms | ActiveRecord: 1.5ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:49:32 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.1ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:51:45 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.9ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.8ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:51:55 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:55:10 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.8ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:56:35 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:57:23 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 12ms (Views: 9.8ms | ActiveRecord: 1.7ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:57:29 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:57:31 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.5ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:57:34 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.1ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:57:40 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.2ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 17:58:08 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.8ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:02:34 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 1.7ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:05:08 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:05:23 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.9ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 7.2ms | ActiveRecord: 1.8ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:05:49 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.9ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:07:08 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.7ms | ActiveRecord: 0.8ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:08:00 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.7ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:08:13 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:08:21 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.9ms | ActiveRecord: 0.8ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:08:27 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 4.9ms | ActiveRecord: 0.7ms | Allocations: 2682)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:08:28 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.7ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:08:32 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 1.0ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:10:12 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 1.0ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:10:19 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.0ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:10:22 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:10:23 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.9ms | ActiveRecord: 1.4ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:12:19 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 28ms (Views: 26.7ms | ActiveRecord: 1.4ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:12:19 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.7ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:12:31 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.4ms | ActiveRecord: 1.0ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:12:32 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.8ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:13:03 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.0ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:13:03 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.8ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:13:47 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:13:48 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.8ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 18ms (Views: 14.7ms | ActiveRecord: 2.5ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:13:52 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.2ms | ActiveRecord: 0.9ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:13:53 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.9ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:15:04 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 1.2ms | Allocations: 2682)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:15:27 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.1ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:18:57 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 6.5ms | ActiveRecord: 1.4ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:19:28 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:21:00 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.4ms | ActiveRecord: 1.1ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:21:47 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:21:57 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 1.4ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:22:18 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 30ms (Views: 28.1ms | ActiveRecord: 1.5ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:24:05 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:25:40 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 8.0ms | ActiveRecord: 1.4ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:37:00 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 9.9ms | ActiveRecord: 1.7ms | Allocations: 3256)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:51:52 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 10ms (Views: 9.7ms | ActiveRecord: 1.5ms | Allocations: 3257)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 18:52:37 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 1.2ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 20:07:28 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 11ms (Views: 10.0ms | ActiveRecord: 1.6ms | Allocations: 3257)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 20:09:02 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.2ms | ActiveRecord: 1.3ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 20:09:10 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 6ms (Views: 5.4ms | ActiveRecord: 0.8ms | Allocations: 2681)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 20:09:12 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 7ms (Views: 5.8ms | ActiveRecord: 1.0ms | Allocations: 2681)
+
+
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTask Create (1.0ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "assignee", "reviewer", "status", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["title", "Finish QoE"], ["description", "a description"], ["assignee", "Mark"], ["reviewer", "Ian"], ["status", "For Review"], ["user_id", 1], ["created_at", "2021-06-23 00:11:25.269614"], ["updated_at", "2021-06-23 00:11:25.269614"]]
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/tasks" for ::1 at 2021-06-22 20:11:43 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.2ms | Allocations: 2846)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 20:36:50 -0400
+Processing by TasksController#index as */*
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 17ms (Views: 16.2ms | ActiveRecord: 1.2ms | Allocations: 3421)
+
+
+Started GET "/tasks" for ::1 at 2021-06-22 20:38:22 -0400
+Processing by TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Backlog')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'In Progress')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'For Review')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE (status = 'Done')[0m
+  ↳ app/controllers/tasks_controller.rb:10:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.8ms | Allocations: 2846)
+
+

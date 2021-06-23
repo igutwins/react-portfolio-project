@@ -6,6 +6,7 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.string :assignee
       t.string :reviewer
       t.string :status
+      t.belongs_to :user
 
       t.timestamps
     end

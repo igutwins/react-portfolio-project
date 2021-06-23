@@ -11,6 +11,7 @@ class NewTask extends Component {
         assignee: '',
         reviewer: '',
         status: '',
+        user: ''
     }
     
     handleOnChange = event => {
@@ -30,6 +31,7 @@ class NewTask extends Component {
             assignee: '',
             reviewer: '',
             status: '',
+            user: ''
         })
     }
 
