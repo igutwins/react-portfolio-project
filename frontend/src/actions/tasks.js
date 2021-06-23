@@ -12,11 +12,6 @@ export const addTask = taskObj => {
         .then( r => {
             dispatch({type: "ADD_TASK", task: r})})
     }
-
-    // return {
-    //     type: "ADD_TASK",
-    //     task: Object.assign({}, task)
-    // }
 }
 
 export const fetchTasks = () => {
@@ -27,5 +22,21 @@ export const fetchTasks = () => {
             .then( r => {
                 dispatch({type: "ADD_TASKS", tasks: r})
             })
+    }
+}
+
+export const updateStatus = (task) => {
+    return (dispatch) => {
+        fetch(`http://localhost:3090/tasks/${task.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept":"application/json"
+            },
+            body: JSON.stringify({id: task.id, status: task.status})
+        })
+        .then( r => r.json())
+        .then( r => {
+            dispatch({type: "UPDATE_STATUS", task: r})})
     }
 }

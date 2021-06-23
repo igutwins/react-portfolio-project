@@ -18,7 +18,7 @@ class Swimlane extends Component {
             return(
                 <Row>
                     {this.props[this.props.objKey].map(x => 
-                        <Task   key={x.id}
+                        <Task   id={x.id}
                                 title={x.title} 
                                 description={x.description} 
                                 assignee={x.assignee} 
@@ -26,7 +26,7 @@ class Swimlane extends Component {
                 </Row>
         ) }
     }
-    
+
     render(){ 
         return(<Col sm={3} className="swimlane">
             <Row>

@@ -11,7 +11,6 @@ class TasksController < ApplicationController
     end 
     
     def create
-        puts params
         task = Task.create(
             title: params[:taskObj][:title],
             description: params[:taskObj][:description],
@@ -20,6 +19,12 @@ class TasksController < ApplicationController
             status: params[:taskObj][:status],
             user: User.find_by(:id => params[:taskObj][:user])
         )
+        render json: task
+    end 
+
+    def update
+        task = Task.find_by(:id => params[:id])
+        task.update(:status => params[:status])
         render json: task
     end 
 

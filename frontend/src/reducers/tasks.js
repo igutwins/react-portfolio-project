@@ -27,6 +27,22 @@ const tasksReducer = (state = {tasks: {
               tasks: action.tasks,
               loading: false
             };
+
+          case "UPDATE_STATUS":
+            
+            //here i need to update the status of the existing object in state
+            //action.taskId
+            //action.newStatus
+            let x = action.task
+            
+            console.log(state.tasks)
+            return {
+              ...state.tasks,
+              backlog: [...state.tasks.backlog.filter(i => i.id !== x.id)],
+              inProgress: [...state.tasks.inProgress.filter(i => i.id !== x.id)],
+              forReview: [...state.tasks.forReview.filter(i => i.id !== x.id)],
+              done: [...state.tasks.done.filter(i => i.id !== x.id)],
+            }
         // case "REMOVE_TASK":
         //   return state.filter(task => task.id !== action.taskId);
           

@@ -43,7 +43,6 @@ class NewTask extends Component {
             <>
             <h1>New Task Form</h1>
             <Form onSubmit={this.handleOnSubmit}>
-            {/* <form onSubmit={this.handleOnSubmit}> */}
                 <Form.Group style={{"width": '30%', "margin":"auto"}}>
                     <Form.Label for="title">Task Title:</Form.Label>
                     <Form.Control 
@@ -92,6 +91,7 @@ class NewTask extends Component {
                     value={this.state.status}
                     onChange={this.handleOnChange}
                 >
+                    <option>Select from Dropdown:</option>
                     <option>Backlog</option>
                     <option>In Progress</option>
                     <option>For Review</option>
@@ -111,7 +111,7 @@ class NewTask extends Component {
                 </Form.Group>
                 <br/>
                 <Button variant="primary" type="submit">Submit</Button>
-            {/* </form> */}
+
             </Form>
             </>
             )
