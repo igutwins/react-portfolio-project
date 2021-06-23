@@ -23,7 +23,6 @@ class Task extends Component {
     handleOnSubmit = event => {
         event.preventDefault();
         const task = {...this.state};
-        console.log(task)
         this.props.updateStatus(task);
         this.setState({
             status: "",
@@ -33,7 +32,6 @@ class Task extends Component {
     
     
     render(){
-        console.log(this.state)
         return(
             <Card className="task">
                 <Card.Header>{this.props.title}</Card.Header>

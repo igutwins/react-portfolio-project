@@ -4,7 +4,6 @@ import { addTask } from '../actions/tasks'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-
 class NewTask extends Component {
     
     state = {
@@ -26,7 +25,6 @@ class NewTask extends Component {
     handleOnSubmit = event => {
         event.preventDefault();
         const task = {...this.state};
-        console.log(task)
         this.props.addTask(task);
         this.setState({
             title: '',
@@ -36,6 +34,7 @@ class NewTask extends Component {
             status: '',
             user: ''
         })
+        this.props.history.push('/')
     }
 
     render(){
