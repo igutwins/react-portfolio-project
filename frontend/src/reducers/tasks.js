@@ -1,11 +1,16 @@
-const tasksReducer = (state = {tasks: {}, loading: false}, action) => {
+const tasksReducer = (state = {tasks: {
+    backlog: [],
+    inProgress: [],
+    forReview: [],
+    done: []
+}, loading: false}, action) => {
     
       switch(action.type){
         
         case "LOADING_TASKS":
           return {
             ...state, 
-            tasks: {},
+            tasks: state.tasks,
             loading: true
           };
         

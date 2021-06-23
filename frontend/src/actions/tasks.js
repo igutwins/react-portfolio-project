@@ -1,8 +1,22 @@
-export const addTask = task => {
-    return {
-        type: "ADD_TASK",
-        task: Object.assign({}, task)
+export const addTask = taskObj => {
+    return (dispatch) => {
+        fetch('http://localhost:3090/tasks', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept":"application/json"
+            },
+            body: JSON.stringify({taskObj})
+        })
+        .then( r => r.json())
+        .then( r => {
+            dispatch({type: "ADD_TASK", task: r})})
     }
+
+    // return {
+    //     type: "ADD_TASK",
+    //     task: Object.assign({}, task)
+    // }
 }
 
 export const fetchTasks = () => {

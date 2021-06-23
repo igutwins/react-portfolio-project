@@ -11,13 +11,14 @@ class TasksController < ApplicationController
     end 
     
     def create
+        puts params
         task = Task.create(
-            title: params[:title],
-            description: params[:description],
-            assignee: params[:assignee],
-            reviewer: params[:reviewer],
-            status: params[:status],
-            user: 1
+            title: params[:taskObj][:title],
+            description: params[:taskObj][:description],
+            assignee: params[:taskObj][:assignee],
+            reviewer: params[:taskObj][:reviewer],
+            status: params[:taskObj][:status],
+            user: User.find_by(:id => params[:taskObj][:user])
         )
         render json: task
     end 
